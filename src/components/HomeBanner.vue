@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-between items-center pt-[100px] container">
-    <img src="../assets/banner.bmp" alt="" class="w-[760px]" />
+    <img src="../assets/sunflower-1188753.webp" alt="" class="w-[760px]" />
     <div>
       <h1 class="text-[80px] text-bold">Твой букет говорит за тебя</h1>
       <p class="text-[28px] baner-text">Создаем по вашим пожеланиям</p>
@@ -8,11 +8,18 @@
   </div>
   <div class="best pt-[100px] pb-[25px] container">
     <p class="text-center text-[25px] leader mb-[25px]">ЛИДЕРЫ ПРОДАЖ</p>
-
     <div class="flex justify-between">
-      <div v-for="item in items" key="item">
-        <ProductCard :flower="item"></ProductCard>
-      </div>
+      <swiper
+        class="pt-[15px] h-[400px]"
+        :slides-per-view="4"
+        :space-between="50"
+        @swiper="onSwiper"
+        @slideChange="onSlideChange"
+      >
+        <swiper-slide v-for="item in items">
+          <ProductCard :flower="item"></ProductCard
+        ></swiper-slide>
+      </swiper>
     </div>
   </div>
   <img src="../assets/LEAD_BANNER_DESKTOP_1.jpg" alt="" />
@@ -22,9 +29,17 @@
     </p>
 
     <div class="flex justify-between">
-      <div v-for="item in items" key="item">
-        <ProductCard :flower="item"></ProductCard>
-      </div>
+      <swiper
+        class="pt-[55px] h-[400px]"
+        :slides-per-view="4"
+        :space-between="50"
+        @swiper="onSwiper"
+        @slideChange="onSlideChange"
+      >
+        <swiper-slide v-for="item in items">
+          <ProductCard :flower="item"></ProductCard
+        ></swiper-slide>
+      </swiper>
     </div>
   </div>
   <img src="../assets/SECTION_FOUR_BLOCK_DESKTOP-min.jpeg" alt="" />
@@ -48,6 +63,9 @@
 </template>
 
 <script>
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/css";
+import "swiper/css/navigation";
 import ProductCard from "./ProductCard.vue";
 import { db } from "../firebase/firebase";
 import {
@@ -63,10 +81,22 @@ import {
 export default {
   components: {
     ProductCard,
+    Swiper,
+    SwiperSlide,
   },
   data() {
     return {
+      onSwiper: null,
+      onSlideChange: null,
       items: [],
+    };
+  },
+  mounted() {
+    this.onSwiper = (swiper) => {
+      console.log(swiper);
+    };
+    this.onSlideChange = () => {
+      console.log("slide change");
     };
   },
   async created() {
