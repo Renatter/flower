@@ -99,7 +99,11 @@
           <p class="">{{ item.desc }}</p>
           <div class="flex justify-between">
             <h1 class="font-[500] text-[25px] pt-[25px]">Отзыв</h1>
-            <button class="btn1 mt-[25px]" @click="showReviewModal = true">
+            <button
+              v-if="currentUser"
+              class="btn1 mt-[25px]"
+              @click="showReviewModal = true"
+            >
               <span class="button_top"> добавить отзыв </span>
             </button>
           </div>
