@@ -7,7 +7,7 @@
     >
       <div class="form-container sign-up-container">
         <form @submit.prevent="register">
-          <h1>Создать аккаунт</h1>
+          <h1>Аккаунт ашу</h1>
           <input
             type="email"
             placeholder="Email"
@@ -20,12 +20,12 @@
             v-model="password"
             name="password"
           />
-          <button type="submit">Регистрация</button>
+          <button type="submit">Тіркеу</button>
         </form>
       </div>
       <div class="form-container sign-in-container">
         <form @submit.prevent="login">
-          <h1>Войти</h1>
+          <h1>Кіру</h1>
           <input
             type="email"
             placeholder="Email"
@@ -38,27 +38,23 @@
             v-model="password"
             name="password"
           />
-          <button type="submit">Войти</button>
+          <button type="submit">Кіру</button>
         </form>
       </div>
       <div class="overlay-container">
         <div class="overlay">
           <div class="overlay-panel overlay-left">
-            <h1>С возвращением!</h1>
+            <h1>Қайта оралу!</h1>
             <p>
-              Чтобы оставаться на связи с нами, пожалуйста, войдите в систему,
-              указав свои личные данные
+              Бізбен байланыста болу үшін жеке мәліметтеріңізді енгізу арқылы
+              жүйеге кіріңіз
             </p>
-            <button class="ghost" @click="togglePanel(false)">Войти</button>
+            <button class="ghost" @click="togglePanel(false)">Кіру</button>
           </div>
           <div class="overlay-panel overlay-right">
-            <h1>Привет, друг!</h1>
-            <p>
-              Введите свои личные данные и начните путешествие вместе с нами
-            </p>
-            <button class="ghost" @click="togglePanel(true)">
-              Регистрация
-            </button>
+            <h1>Сәлем досым!</h1>
+            <p>Жеке мәліметтеріңізді енгізіп, бізбен бірге сапарды бастаңыз</p>
+            <button class="ghost" @click="togglePanel(true)">Тіркеу</button>
           </div>
         </div>
       </div>
