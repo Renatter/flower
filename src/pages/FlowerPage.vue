@@ -10,7 +10,7 @@
         <div class="block w-[400px]">
           <h1 class="text-[20px] font-[500]">{{ item.name }}</h1>
           <p class="text-[#6a6a6a] mt-[15px] mb-[15px]">
-            Цена: {{ item.price }}тг
+            Бағасы: {{ item.price }}тг
           </p>
           <div class="text-[#6a6a6a] mt-[15px] mb-[15px]">
             Катгеория:
@@ -19,7 +19,7 @@
             </span>
           </div>
           <div class="text-[#6a6a6a] mt-[15px] mb-[15px]">
-            Цвет:
+            Түсі:
             <div
               :style="{ 'background-color': item.color }"
               class="w-[20px] h-[20px] rounded-full flex items-center justify-center"
@@ -88,23 +88,23 @@
             </div>
           </div>
           <button class="btn mt-[25px]" v-if="currentUser === null">
-            <span class="button_top"> войдите в аккаунт </span>
+            <span class="button_top"> Акаунтка кіріңіз </span>
           </button>
           <button class="btn mt-[25px]" v-else>
             <span class="button_top" @click="addToCart()">
-              Купить {{ totalPrice }}тг
+              Сатып алу {{ totalPrice }}тг
             </span>
           </button>
-          <p class="pt-[20px]">Описание:</p>
+          <p class="pt-[20px]">Сипаттама:</p>
           <p class="">{{ item.desc }}</p>
           <div class="flex justify-between">
-            <h1 class="font-[500] text-[25px] pt-[25px]">Отзыв</h1>
+            <h1 class="font-[500] text-[25px] pt-[25px]">Пікір</h1>
             <button
               v-if="currentUser"
               class="btn1 mt-[25px]"
               @click="showReviewModal = true"
             >
-              <span class="button_top"> добавить отзыв </span>
+              <span class="button_top"> Пікір қосу </span>
             </button>
           </div>
           <div
@@ -121,43 +121,45 @@
         v-if="showReviewModal"
         @close="showReviewModal = false"
       >
-        <form @submit.prevent="submitReview">
-          <h2 class="font-bold text-[25px]">Добавить отзыв</h2>
-          <div>
-            <label
-              for="first_name"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Почта</label
-            >
-            <input
-              :disabled="true"
-              type="text"
-              id="first_name"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              required
-              v-model="userProfile.email"
-            />
-          </div>
-          <div>
-            <label
-              for="message"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Отзыв</label
-            >
-            <textarea
-              id="message"
-              rows="4"
-              v-model="reviewComment"
-              class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            ></textarea>
-          </div>
-          <button class="btn mt-[25px]" @click="addOtzv">
-            <span class="button_top">отправить </span>
-          </button>
-          <button class="btn mt-[25px]" @click="showReviewModal = false">
-            <span class="button_top">Отменить </span>
-          </button>
-        </form>
+        <div class="dialog" v-if="showReviewModal">
+          <form @submit.prevent="addOtzv">
+            <h2 class="font-bold text-[25px]">Пікір қосу</h2>
+            <div>
+              <label
+                for="first_name"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Почта</label
+              >
+              <input
+                :disabled="true"
+                type="text"
+                id="first_name"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                required
+                v-model="userProfile.email"
+              />
+            </div>
+            <div>
+              <label
+                for="message"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Пікір</label
+              >
+              <textarea
+                id="message"
+                rows="4"
+                v-model="reviewComment"
+                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              ></textarea>
+            </div>
+            <button class="btn mt-[25px]" type="submit">
+              <span class="button_top">жіберу </span>
+            </button>
+            <button class="btn mt-[25px]" @click="showReviewModal = false">
+              <span class="button_top">Бас тарту </span>
+            </button>
+          </form>
+        </div>
       </div>
     </main>
   </div>
@@ -197,37 +199,56 @@ export default {
   },
   methods: {
     async addOtzv() {
+      if (!this.userProfile || !this.userProfile.email) {
+        alert("Пользователь не авторизован или нет email");
+        return;
+      }
+
+      if (!this.reviewComment) {
+        alert("Отзыв не может быть пустым");
+        return;
+      }
+
       const newReview = {
         name: this.userProfile.email,
         review: this.reviewComment,
       };
 
-      const q = query(collection(db, "flowers"), where("name", "==", this.id));
-      const querySnapshot = await getDocs(q);
+      try {
+        const q = query(
+          collection(db, "flowers"),
+          where("name", "==", this.id)
+        );
+        const querySnapshot = await getDocs(q);
 
-      if (!querySnapshot.empty) {
-        const doc = querySnapshot.docs[0]; // Берем первый документ из результатов запроса
-
-        try {
-          const docData = doc.data();
-
-          // Проверяем, существует ли отзыв от этого пользователя
-          const existingReview = docData.reviews.find(
-            (review) => review.name === this.userProfile.email
-          );
-
-          if (existingReview) {
-            alert("Вы уже добавили отзыв");
-            return;
-          }
-
-          await updateDoc(doc.ref, {
-            reviews: arrayUnion(newReview), // Добавляем новый отзыв в массив существующих отзывов
-          });
-          console.log("Отзыв успешно добавлен");
-        } catch (error) {
-          console.error("Ошибка при добавлении отзыва:", error);
+        if (querySnapshot.empty) {
+          alert("Продукт не найден");
+          return;
         }
+
+        const doc = querySnapshot.docs[0]; // Берем первый документ из результатов запроса
+        const docData = doc.data();
+
+        // Инициализируем reviews, если он не существует
+        const reviews = docData.reviews || [];
+
+        // Проверяем, существует ли отзыв от этого пользователя
+        const existingReview = reviews.find(
+          (review) => review.name === this.userProfile.email
+        );
+
+        if (existingReview) {
+          alert("Вы уже добавили отзыв");
+          return;
+        }
+
+        await updateDoc(doc.ref, {
+          reviews: arrayUnion(newReview), // Добавляем новый отзыв в массив существующих отзывов
+        });
+        console.log("Отзыв успешно добавлен");
+        this.showReviewModal = false;
+      } catch (error) {
+        console.error("Ошибка при добавлении отзыва:", error);
       }
     },
     async addToCart() {

@@ -3,39 +3,38 @@
     class="w-[350px] card border-[3px] border-[#020617] p-[15px] rounded-[10px] flex justify-between items-start"
   >
     <div>
-      <p>Имя: {{ order.userName }} {{ order.userL }}</p>
-      <p>Номер: {{ order.phone }}</p>
-      <p>Способ: {{ order.sposob === 2 ? "карта" : "нал" }}</p>
+      <p>Аты: {{ order.userName }} {{ order.userL }}</p>
+      <p>Нөмірі: {{ order.phone }}</p>
+      <p>Тәсілі: {{ order.sposob === 2 ? "карта" : "колма-кол" }}</p>
       <p>Итого: {{ order.allSum }}тг</p>
     </div>
     <button class="btn1 mt-[5px] w-[410px]" @click="openModal()">
-      <span class="button_top"> Посмотреть </span>
+      <span class="button_top"> Көру </span>
     </button>
     <div v-if="modalOpen" class="modal">
       <div class="modal-content w-[400px]">
-        <!-- Здесь вы можете добавить содержимое вашего модального окна -->
-        <p>Имя: {{ order.userName }} {{ order.userL }}</p>
-        <p>Номер: {{ order.phone }}</p>
-        <p>Адрес: {{ order.addres }}</p>
-        <p>Способ: {{ order.sposob === 2 ? "карта" : "нал" }}</p>
+        <p>Аты: {{ order.userName }} {{ order.userL }}</p>
+        <p>Нөмірі: {{ order.phone }}</p>
+        <p>Мекен-жайы: {{ order.addres }}</p>
+        <p>Тәсілі: {{ order.sposob === 2 ? "карта" : "колма-кол" }}</p>
         <div v-for="i of order.cart" class="mt-[15px]">
           <div class="flex">
             <img class="w-[100px] rounded-[15px]" :src="i.image" alt="" />
             <div class="ml-[10px]">
-              <p>Название: {{ i.flowerName }}</p>
+              <p>Атауы: {{ i.flowerName }}</p>
               <p>Штук: {{ i.quantity }}</p>
-              <p>Сумма: {{ i.totalSum }} тг</p>
+              <p>Сомасы: {{ i.totalSum }} тг</p>
             </div>
           </div>
         </div>
-        <p>Итого: {{ order.allSum }}тг</p>
+        <p>Барлығы: {{ order.allSum }}тг</p>
         <div class="flex">
           <button class="btn1 mt-[5px]" @click="closeModal()">
-            <span class="button_top"> Закрыть </span>
+            <span class="button_top"> Жабу </span>
           </button>
           <button class="btn mt-[5px] ml-[15px]">
             <span class="button_top" @click="deleteItem(order.userName)">
-              Отправить
+              Жіберу
             </span>
           </button>
         </div>

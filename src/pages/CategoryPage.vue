@@ -4,7 +4,7 @@
       <div class="min-w-[220px] max-w-[220px] h-[200px]">
         <div class=".div">
           <button class="btn mb-[5px] w-[410px]" @click="restore()">
-            <span class="button_top"> Вернуть </span>
+            <span class="button_top"> Қайтару </span>
           </button>
           <details>
             <summary>Категория</summary>
@@ -33,7 +33,7 @@
         </div>
         <div class=".div">
           <details>
-            <summary>Цвета</summary>
+            <summary>Түстер</summary>
             <div class="flex flex-wrap">
               <div
                 v-for="i in colors"
@@ -46,7 +46,7 @@
         </div>
         <div class=".div">
           <details>
-            <summary>Цена</summary>
+            <summary>Бағасы</summary>
             <div class="flex">
               <button @click="sortAscending" class="btn mt-[25px]">
                 <span class="button_top"> Өсу бойынша </span>
@@ -83,18 +83,18 @@ export default {
       flowers: [],
       filteredFlowers: [],
       categories: [
-        "8 марта",
-        "свадьба",
-        "день матери",
-        "ЦВЕТОЧНЫЙ ДЕКОР",
-        "Цветы в Коробке",
-        "Комнатные растения",
-        "Весенние цветы",
-        "Летние букеты",
-        "Осенние композиции",
-        "Зимние аранжировки",
+        "8 наурыз",
+        "үйлену тойы",
+        "аналар күні",
+        "ГҮЛ ДЕКОРЫ",
+        "Қораптағы гүлдер",
+        "Үй өсімдіктер",
+        "Көктемгі гүлдер",
+        "Жазғы гүл шоқтары",
+        "Күзгі композициялар",
+        "Қысқы  гүлдер",
         "Вазадағы Гүлдер",
-        "день валентина",
+        "Валентин күн",
       ],
       colors: [],
     };

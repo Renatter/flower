@@ -5,9 +5,9 @@
         <router-link to="/">
           <img src="../assets/logo.webp" alt="" class="w-[100px]" />
         </router-link>
-        <p>ЦВЕТОЧНАЯ КОМПАНИЯ</p>
+        <p>AD flowers</p>
         <div class="flex justify-between">
-          <router-link to="/basket">
+          <router-link to="/basket" v-if="isAuthenticated">
             <img class="mr-[10px]" src="../assets/basket.png" alt="" />
           </router-link>
           <router-link to="/edit">
@@ -19,9 +19,9 @@
             />
           </router-link>
           <router-link v-if="!isAuthenticated" to="/login">
-            <button>LOGIN</button>
+            <button>Кiру</button>
           </router-link>
-          <button @click="logout" v-if="isAuthenticated">Выход</button>
+          <button @click="logout" v-if="isAuthenticated">Шығу</button>
         </div>
       </div>
       <nav>
@@ -64,42 +64,42 @@ export default {
       isAdmin: false,
       menus: [
         {
-          title: "МАГАЗИН ПО КОЛЛЕКЦИЯМ",
+          title: "ЖИНАҚ ДҮКЕНІ",
           routerLink: "/category",
           showSubMenu: false,
           subMenus: [
-            { title: "Цветы в Коробке", routerLink: "/flowerInbox" },
+            { title: "Қораптағы гүлдер", routerLink: "/flowerInbox" },
             { title: "Вазадағы Гүлдер", routerLink: "/flowervase" },
           ],
         },
         {
-          title: "ВСЕ ТОВАРЫ",
+          title: "БАРЛЫҚ ТАУАРЛАР",
           routerLink: "/category",
         },
         {
-          title: "ДЕЛАЙТЕ ПОКУПКИ ПО ПОВОДАМ",
+          title: "СЫЛТАУ БОЙЫНША САТЫП АЛЫҢЫЗ",
           routerLink: "/category",
           showSubMenu: false,
           subMenus: [
             { title: "8 марта", routerLink: "/Mart" },
-            { title: "День валентина", routerLink: "/Valentina" },
-            { title: "День матери", routerLink: "/Mama" },
+            { title: "Валентин күні", routerLink: "/Valentina" },
+            { title: "Аналар күні", routerLink: "/Mama" },
           ],
         },
         {
-          title: "Комнатные растения",
+          title: "Үй өсімдіктер",
           routerLink: "/Comnata",
           // No subMenus property for this menu
         },
         {
-          title: "СЕЗОН",
+          title: "Маусым",
           routerLink: "/category",
           showSubMenu: false,
           subMenus: [
-            { title: "ОСЕНЬ", routerLink: "/Osen" },
-            { title: "ЗИМА", routerLink: "/zima" },
-            { title: "ЛЕТО", routerLink: "/Leto" },
-            { title: "Весна", routerLink: "/Vesna" },
+            { title: "Күз", routerLink: "/Osen" },
+            { title: "Қыс", routerLink: "/zima" },
+            { title: "Жаз", routerLink: "/Leto" },
+            { title: "Көктем", routerLink: "/Vesna" },
           ],
         },
       ],

@@ -2,12 +2,17 @@
   <div class="container pt-[155px]">
     <button class="btn1 mt-[25px] max-w-[150px]">
       <router-link to="/add">
-        <span class="button_top"> Добавить </span>
+        <span class="button_top"> Қосу </span>
       </router-link>
     </button>
     <button class="btn mt-[25px] ml-[10px] max-w-[150px]">
       <router-link to="/order">
-        <span class="button_top"> Заказы </span>
+        <span class="button_top"> Тапсырыстар </span>
+      </router-link>
+    </button>
+    <button class="btn mt-[25px] ml-[10px] max-w-[150px]">
+      <router-link to="/AddPromo">
+        <span class="button_top"> Жарнамалық код </span>
       </router-link>
     </button>
     <div class="flex flex-wrap gap-[35px] pt-[15px]">

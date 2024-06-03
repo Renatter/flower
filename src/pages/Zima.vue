@@ -1,7 +1,7 @@
 <template>
   <div class="container pt-[150px]">
-    <p class="text-center text-[25px] leader mb-[25px]">Зима</p>
-    <div class="flex gap-[35px]">
+    <p class="text-center text-[25px] leader mb-[25px]">Қысқы гүлдер</p>
+    <div class="flex gap-[35px] flex-wrap">
       <ProductCard
         v-for="item in items"
         :flower="item"
@@ -28,7 +28,7 @@ export default {
   created() {
     const flowersQuery = query(
       collection(db, "flowers"),
-      where("category", "array-contains", "Зимние аранжировки")
+      where("category", "array-contains", "Қысқы  гүлдер")
     );
 
     onSnapshot(flowersQuery, (querySnapshot) => {

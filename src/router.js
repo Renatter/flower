@@ -6,6 +6,7 @@ import {
 import HomePage from './pages/HomePage.vue'
 import Login from './components/Login.vue';
 import EditFlower from './components/EditFlower.vue';
+import AddPromo from './components/AddPromo.vue';
 import BasketPage from './pages/BasketPage.vue';
 import EditPage from './pages/EditPage.vue';
 import FlowerPage from './pages/FlowerPage.vue';
@@ -117,6 +118,11 @@ const router = createRouter({
             path: '/edit',
             name: 'edit',
             component: EditPage,
+        },
+        {
+            path: '/AddPromo',
+            name: 'AddPromo',
+            component: AddPromo,
         },
         {
             path: '/flower-page/:id',

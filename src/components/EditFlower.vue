@@ -1,17 +1,16 @@
 <template>
   <div class="container pt-[150px] flex justify-center items-center">
     <div>
-      <h1 class="text-[30px] text-center mb-4">Изменить</h1>
+      <h1 class="text-[30px] text-center mb-4">Өзгерту</h1>
       <div class="input-container mt-[15px]">
-        <p class="w-[100px] text-center">Картинка</p>
+        <p class="w-[100px] text-center">Сурет</p>
         <input @change="onFileChange" id="dropzone-file" type="file" />
         <button
-          v-if="file"
+          v-if="file && !uploadSuccessful"
           class="btn ml-[25px] w-[100%]"
-          @click="uploadImage()"
+          @click="uploadImage"
         >
-          >
-          <span class="button_top">добавить</span>
+          <span class="button_top">қосу</span>
         </button>
       </div>
       <img
@@ -21,7 +20,7 @@
         srcset=""
       />
       <div class="input-container mt-[15px]">
-        <p class="w-[100px] text-center">Название</p>
+        <p class="w-[100px] text-center">Атауы</p>
         <input
           class="w-[100%]"
           type="text"
@@ -30,7 +29,7 @@
         />
       </div>
       <div class="input-container mt-[15px]">
-        <p class="w-[100px] text-center">Цвет</p>
+        <p class="w-[100px] text-center">Түсі</p>
         <input
           class="w-[100%]"
           type="color"
@@ -41,7 +40,7 @@
         />
       </div>
       <div class="input-container mt-[15px] w-[100%]">
-        <p class="w-[100px] text-center">Описание</p>
+        <p class="w-[100px] text-center">Сипаттама</p>
         <textarea
           class="w-[100%] ml-[10px]"
           type="text"
@@ -50,7 +49,7 @@
         />
       </div>
       <div class="input-container mt-[15px]">
-        <p class="w-[100px] text-center mr-[1px]">Категория</p>
+        <p class="w-[100px] text-center mr-[1px]">Санат</p>
         <div class="flex flex-wrap gap-[5px]">
           <button
             v-for="i of category"
@@ -58,29 +57,24 @@
             :class="{ selected: flowerCategory.includes(i) }"
             @click="toggleCategory(i)"
           >
-            >
             <span class="button_top">{{ i }}</span>
           </button>
         </div>
       </div>
       <div class="input-container mt-[15px]">
-        <p class="w-[100px] text-center">Цена</p>
+        <p class="w-[100px] text-center">Бағасы</p>
         <input
           class="w-[100%]"
           type="text"
-          placeholder="Введите текст"
+          placeholder="Мәтінді енгізіңіз"
           v-model="item.price"
         />
       </div>
       <div class="flex items-center">
-        <button
-          class="btn mt-[5px] w-[410px]"
-          :disabled="!file"
-          @click="save()"
-        >
-          <span class="button_top"> Сохранить </span>
+        <button class="btn mt-[5px] w-[410px]" :disabled="!file" @click="save">
+          <span class="button_top"> Сақтау </span>
         </button>
-        <p v-if="!file" class="ml-[15px] text-[#dc2626]">добавьте картинку</p>
+        <p v-if="!file" class="ml-[15px] text-[#dc2626]">суретті қосыңыз</p>
       </div>
     </div>
   </div>
@@ -89,45 +83,34 @@
 <script>
 import {
   doc,
-  deleteDoc,
   updateDoc,
-  getDoc,
   query,
   where,
   collection,
   onSnapshot,
   getDocs,
-  getDocsFromServer,
 } from "firebase/firestore";
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  deleteObject,
-  listAll,
-} from "firebase/storage";
-
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, auth, storage } from "../firebase/firebase";
+
 export default {
   data() {
     return {
       item: {},
       id: this.$route.params.id,
-      color: "null",
-      flower: "null",
       category: [
+        "8 наурыз",
+        "үйлену тойы",
+        "аналар күні",
+        "ГҮЛ ДЕКОРЫ",
+        "Қораптағы гүлдер",
+        "Үй өсімдіктер",
+        "Көктемгі гүлдер",
+        "Жазғы гүл шоқтары",
+        "Күзгі композициялар",
+        "Қысқы  гүлдер",
         "Вазадағы Гүлдер",
-        "свадьба",
-        "день матери",
-        "ЦВЕТОЧНЫЙ ДЕКОР",
-        "Декоративные цветы",
-        "Комнатные растения",
-        "Весенние цветы",
-        "Летние букеты",
-        "Осенние композиции",
-        "Зимние аранжировки",
-        "8 марта",
-        "день валентина",
+        "Валентин күн",
       ],
       price: null,
       desc: "",
@@ -135,20 +118,17 @@ export default {
       file: null,
       imageUrls: [],
       flowerCategory: [],
+      uploadSuccessful: false,
     };
   },
   methods: {
     toggleCategory(category) {
       const index = this.flowerCategory.indexOf(category);
       if (index === -1) {
-        // Категория не найдена в массиве, добавляем ее
         this.flowerCategory.push(category);
       } else {
-        // Категория найдена в массиве, удаляем ее
         this.flowerCategory.splice(index, 1);
       }
-      // Здесь вы можете выполнить обновление базы данных, добавив или удалив категорию
-      // Например, выполните соответствующие операции с Firebase Firestore
     },
     async uploadImage() {
       const storageRef = ref(
@@ -160,6 +140,7 @@ export default {
 
       this.imageUrls.push(downloadUrl);
       this.item.img = this.imageUrls[0];
+      this.uploadSuccessful = true; // Установка состояния успешной загрузки
     },
     onFileChange(e) {
       this.file = e.target.files[0];
@@ -169,7 +150,7 @@ export default {
       const q = query(collection(db, "flowers"), where("name", "==", this.id));
       const querySnapshot = await getDocs(q);
       if (!querySnapshot.empty) {
-        const doc = querySnapshot.docs[0]; // Берем первый документ из результатов запроса
+        const doc = querySnapshot.docs[0];
         await updateDoc(doc.ref, {
           name: this.item.name,
           color: this.item.color,
@@ -182,7 +163,6 @@ export default {
       this.$router.push("/edit");
     },
   },
-
   async created() {
     const pizzaQuery = query(
       collection(db, "flowers"),
@@ -234,7 +214,6 @@ export default {
 .input-container p {
   color: white;
   background-color: black;
-
   border-radius: 5px;
   padding: 5px 10px;
   font-size: 16px;
@@ -247,7 +226,6 @@ export default {
   --button_color: #ffffff;
   --button_outline_color: #000000;
   width: 90px;
-
   font-size: 10px;
   font-weight: bold;
   border: none;
@@ -268,23 +246,17 @@ export default {
 }
 
 .btn:hover .button_top {
-  /* Pull the button upwards when hovered */
   transform: translateY(-0.33em);
 }
 .btn:disabled {
-  opacity: 0.5; /* Уменьшаем прозрачность */
-  cursor: not-allowed; /* Меняем курсор на неактивный */
-  /* Можно также изменить цвет фона или текста, чтобы показать, что кнопка неактивна */
-  /* background-color: #cccccc; */
-  /* color: #666666; */
+  opacity: 0.5;
+  cursor: not-allowed;
 }
-
 .btn:active .button_top {
-  /* Push the button downwards when pressed */
   transform: translateY(0);
 }
 .selected .button_top {
-  background: #ff0000; /* Новый цвет фона для выбранных категорий */
-  color: #ffffff; /* Новый цвет текста для выбранных категорий */
+  background: #ff0000;
+  color: #ffffff;
 }
 </style>

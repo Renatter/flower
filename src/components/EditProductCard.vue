@@ -16,11 +16,11 @@
     <div class="flex gap-[15px]">
       <button class="btn mt-[25px]">
         <router-link :to="{ path: '/edit-flower/' + flower.name }">
-          <span class="button_top"> Изменить </span>
+          <span class="button_top"> Өзгерту </span>
         </router-link>
       </button>
       <button @click="deleteNews(flower.id)" class="btn mt-[25px]">
-        <span class="button_top"> Удалить </span>
+        <span class="button_top"> Жою </span>
       </button>
     </div>
   </div>

@@ -11,11 +11,10 @@
       />
     </div>
     <div v-else-if="order === true">
-      <h1 class="font-bold text-center text-[30px]">ОЖИДАЙТЕ ЗАКАЗА</h1>
+      <h1 class="font-bold text-center text-[30px]">ТАПСЫРЫСТЫ КҮТІҢІЗ</h1>
       <button class="btn mt-[25px] max-w-[400px] ml-[270px]">
-        <span class="button_top" @click="cancelOrder()"> Отменить? </span>
+        <span class="button_top" @click="cancelOrder()"> Бас тарту? </span>
       </button>
-      <img class="pl-[200px]" src="../assets/clock.png" alt="" />
     </div>
     <div v-else>
       <div class="relative overflow-x-auto">
@@ -26,11 +25,11 @@
             class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
           >
             <tr>
-              <th scope="col" class="px-6 py-3">Product name</th>
-              <th scope="col" class="px-6 py-3">Color</th>
-              <th scope="col" class="px-6 py-3">Количество</th>
-              <th scope="col" class="px-6 py-3">Price</th>
-              <th scope="col" class="px-6 py-3">Удалить</th>
+              <th scope="col" class="px-6 py-3">Өнім атауы</th>
+              <th scope="col" class="px-6 py-3">Түсі</th>
+              <th scope="col" class="px-6 py-3">Саны</th>
+              <th scope="col" class="px-6 py-3">Бағасы</th>
+              <th scope="col" class="px-6 py-3">Жою</th>
             </tr>
           </thead>
           <tbody v-for="item in items">
@@ -43,7 +42,10 @@
                 <img class="w-[70px] rounded-[10px]" :src="item.image" alt="" />
               </th>
               <td class="px-6 py-4">
-                {{ item.color }}
+                <div
+                  :style="{ 'background-color': item.color }"
+                  class="w-[20px] h-[20px] rounded-full flex items-center justify-center"
+                ></div>
               </td>
               <td class="px-6 py-4">{{ item.quantity }}шт</td>
               <td class="px-6 py-4">{{ item.totalSum }}тг</td>
@@ -53,7 +55,7 @@
                   type="button"
                   class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                 >
-                  Удалить
+                  Жою
                 </button>
               </td>
             </tr>
@@ -62,8 +64,42 @@
       </div>
       <button class="btn mt-[25px]">
         <span class="button_top" @click="openModal()">
-          Купить {{ fullSum }}тг
+          Сатып алу {{ fullSum }}тг
         </span>
+      </button>
+      <button class="btn mt-[25px] bg-red-200">
+        <span class="button_top" @click="openProm()"> Промокод </span>
+      </button>
+    </div>
+  </div>
+  <div
+    v-if="isPromo"
+    class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50"
+  >
+    <div class="bg-white p-8 rounded-lg w-[500px]">
+      <div>
+        <label
+          for="first_name"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Промокод</label
+        >
+        <input
+          v-model="promoCode"
+          type="text"
+          id="first_name"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Промокод"
+          required
+        />
+      </div>
+      <div v-if="disc" class="text-[#2563EB] font-bold text-[25px]">
+        Промокод {{ promoCode }} {{ disc }} %
+        <button class="btn mt-[25px]">
+          <span class="button_top" @click="openProm()">Жабу </span>
+        </button>
+      </div>
+      <button class="btn mt-[25px]">
+        <span class="button_top" @click="applyPromoCode()"> Колдану </span>
       </button>
     </div>
   </div>
@@ -72,13 +108,13 @@
     class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50"
   >
     <div class="bg-white p-8 rounded-lg w-[500px]">
-      <h2 class="text-2xl font-bold mb-4">Подтвердите покупку</h2>
+      <h2 class="text-2xl font-bold mb-4">Сатып алуды растаңыз</h2>
       <div class="flex">
         <div class="mr-5">
           <label
             for="email"
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Имя</label
+            >Аты</label
           >
           <input
             type="email"
@@ -91,7 +127,7 @@
           <label
             for="email"
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Фамилия</label
+            >Тегі</label
           >
           <input
             v-model="userLastName"
@@ -105,7 +141,7 @@
         <label
           for="email"
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Адрес</label
+          >Мекен-жайы</label
         >
         <input
           v-model="addres"
@@ -117,7 +153,7 @@
       <label
         for="phone-input"
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >Номер:</label
+        >Нөмірі:</label
       >
       <div class="relative">
         <div
@@ -148,14 +184,14 @@
       </div>
 
       <p class="mb-2 text-sm font-medium text-gray-900 dark:text-white">
-        Способ оплаты
+        Төлем әдісі
       </p>
       <button
         @click="isTake = 1"
         type="button"
         class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
       >
-        Наличными
+        Қолма-қол ақшамен
       </button>
       <button
         @click="isTake = 2"
@@ -169,7 +205,7 @@
           <div class="grid gap-6">
             <input
               type="text"
-              placeholder="Имя и Фамилия"
+              placeholder="Аты - жөні"
               class="px-4 py-3.5 bg-gray-100 text-[#333] w-full text-sm border rounded-md focus:border-purple-500 outline-none"
             />
             <div
@@ -220,13 +256,13 @@
           @click="closeModal"
           class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md mr-4"
         >
-          Отмена
+          Бас тарту
         </button>
         <button
           @click="addInfo()"
           class="px-4 py-2 bg-black text-white rounded-md"
         >
-          Подтвердить
+          Растау
         </button>
       </div>
     </div>
@@ -260,6 +296,9 @@ export default {
       addres: "",
       phone: 0,
       order: null,
+      promoCode: "",
+      isPromo: false,
+      disc: "",
     };
   },
   methods: {
@@ -278,6 +317,25 @@ export default {
       }
       this.closeModal();
     },
+
+    async applyPromoCode() {
+      const promoCode = this.promoCode; // Значение промокода
+      const promoCollectionRef = collection(db, "promo"); // Ссылка на коллекцию "promo"
+
+      // Запрос Firestore для получения документа с соответствующим промокодом
+      const querySnapshot = await getDocs(
+        query(promoCollectionRef, where("name", "==", promoCode))
+      );
+
+      if (!querySnapshot.empty) {
+        // Документ с промокодом найден
+        const promoDoc = querySnapshot.docs[0].data();
+        const discount = promoDoc.discount;
+        this.disc = promoDoc.discount;
+        // Применение скидки
+        this.fullSum = this.fullSum * (1 - discount / 100);
+      }
+    },
     async cancelOrder() {
       if (this.currentUser) {
         const docRef = doc(db, "cart", `${this.currentUser.uid}`);
@@ -288,6 +346,9 @@ export default {
     },
     openModal() {
       this.isModalOpen = true;
+    },
+    openProm() {
+      this.isPromo = !this.isPromo;
     },
     closeModal() {
       this.isModalOpen = false;

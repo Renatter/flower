@@ -1,17 +1,17 @@
 <template>
   <div class="container pt-[150px] flex justify-center items-center">
     <div>
-      <h1 class="text-[30px] text-center mb-4">Создать</h1>
+      <h1 class="text-[30px] text-center mb-4">Жасау</h1>
       <div class="input-container mt-[15px]">
-        <p class="w-[100px] text-center">Картинка</p>
+        <p class="w-[100px] text-center">Сурет</p>
         <input @change="onFileChange" id="dropzone-file" type="file" />
         <button
-          v-if="file"
+          v-if="file && !isUploaded"
           class="btn ml-[25px] w-[100%]"
           @click="uploadImage()"
         >
           >
-          <span class="button_top">добавить</span>
+          <span class="button_top">қосу</span>
         </button>
       </div>
       <img
@@ -29,7 +29,7 @@
         srcset=""
       />
       <div class="input-container mt-[15px]">
-        <p class="w-[100px] text-center">Название</p>
+        <p class="w-[100px] text-center">Атауы</p>
         <input
           class="w-[100%]"
           type="text"
@@ -38,7 +38,7 @@
         />
       </div>
       <div class="input-container mt-[15px]">
-        <p class="w-[100px] text-center">Цвет</p>
+        <p class="w-[100px] text-center">Түсі</p>
         <input
           class="w-[100%]"
           type="color"
@@ -48,7 +48,7 @@
         />
       </div>
       <div class="input-container mt-[15px] w-[100%]">
-        <p class="w-[100px] text-center">Описание</p>
+        <p class="w-[100px] text-center">Сипаттама</p>
         <textarea
           class="w-[100%] ml-[10px]"
           type="text"
@@ -71,7 +71,7 @@
         </div>
       </div>
       <div class="input-container mt-[15px]">
-        <p class="w-[100px] text-center">Цена</p>
+        <p class="w-[100px] text-center">Бағасы</p>
         <input
           class="w-[100%]"
           type="text"
@@ -80,7 +80,7 @@
         />
       </div>
       <button class="btn mt-[5px] w-[410px]" @click="save()">
-        <span class="button_top"> Сохранить </span>
+        <span class="button_top"> Сақтау </span>
       </button>
     </div>
   </div>
@@ -111,17 +111,20 @@ export default {
       id: this.$route.params.id,
       color: "",
       flower: "",
+      isUploaded: false,
       category: [
-        "8 марта",
-        "день матери",
-        "Цветы в Коробке",
-        "Комнатные растения",
-        "Весенние цветы",
-        "Летние букеты",
-        "Осенние композиции",
-        "Зимние аранжировки",
+        "8 наурыз",
+        "үйлену тойы",
+        "аналар күні",
+        "ГҮЛ ДЕКОРЫ",
+        "Қораптағы гүлдер",
+        "Үй өсімдіктер",
+        "Көктемгі гүлдер",
+        "Жазғы гүл шоқтары",
+        "Күзгі композициялар",
+        "Қысқы  гүлдер",
         "Вазадағы Гүлдер",
-        "день валентина",
+        "Валентин күн",
       ],
       price: "",
       desc: "",
@@ -161,13 +164,14 @@ export default {
     },
     onFileChange(e) {
       this.file = e.target.files[0];
+      this.isUploaded = false;
       console.log(this.file);
     },
     async save() {
       const docRef = await addDoc(collection(db, "flowers"), this.newFlowers);
       alert("Оним косылды");
       console.log("Document written with ID: ", docRef.id);
-      // this.$router.push("/edit");
+      this.$router.push("/edit");
     },
   },
 

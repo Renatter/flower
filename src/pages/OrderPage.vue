@@ -1,6 +1,6 @@
 <template>
   <div class="container pt-[150px]">
-    <h1 class="font-bold text-[25px]">Заказы</h1>
+    <h1 class="font-bold text-[25px]">Тапсырыстар</h1>
     <OrderCard v-for="i of item" :order="i"></OrderCard>
   </div>
 </template>
