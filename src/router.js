@@ -18,7 +18,7 @@ import Zima from './pages/Zima.vue';
 import Leto from './pages/Leto.vue';
 import Osen from './pages/Osen.vue';
 import Vesna from './pages/Vesna.vue';
-
+import Happy from './pages/Happy.vue';
 import Comnata from './pages/Comnata.vue';
 import Mama from './pages/Mama.vue';
 import Valentina from './pages/Valentina.vue';
@@ -51,6 +51,11 @@ const router = createRouter({
             path: '/zima',
             name: 'zima',
             component: Zima,
+        },
+        {
+            path: '/happy',
+            name: 'happy',
+            component: Happy,
         },
         {
             path: '/Leto',

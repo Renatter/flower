@@ -1,6 +1,10 @@
 <template>
   <div class="flex justify-between items-center pt-[100px] container">
-    <img src="../assets/www.png" alt="" class="w-[660px]" />
+    <img
+      src="https://s1.1zoom.me/big0/164/Bouquets_Roses_White_509278.jpg"
+      alt=""
+      class="w-[660px]"
+    />
     <div>
       <h1 class="text-[80px] text-bold">Сіздің букетіңіз сіз үшін сөйлейді</h1>
       <p class="text-[28px] baner-text">

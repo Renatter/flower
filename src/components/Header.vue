@@ -3,10 +3,10 @@
     <div class="text-center">
       <div class="flex justify-between items-center">
         <router-link to="/">
-          <img src="../assets/logo.webp" alt="" class="w-[100px]" />
+          <img src="../assets/log.jpg" alt="" class="w-[50px] pt-[20px]" />
         </router-link>
         <p>AD flowers</p>
-        <div class="flex justify-between">
+        <div class="flex justify-between items-center">
           <router-link to="/basket" v-if="isAuthenticated">
             <img class="mr-[10px]" src="../assets/basket.png" alt="" />
           </router-link>
@@ -23,11 +23,16 @@
           </router-link>
 
           <button @click="logout" v-if="isAuthenticated">Шығу</button>
+
           <a
             class="text-[green] font-bold ml-[30px] text-[20px]"
             href="https://api.whatsapp.com/send?phone=87478421263"
-            >Ватсап</a
           >
+            <img
+              width="50px"
+              src="https://img.icons8.com/?size=100&id=16713&format=png&color=000000"
+              alt=""
+          /></a>
         </div>
       </div>
       <nav>
@@ -83,7 +88,7 @@ export default {
           routerLink: "/category",
         },
         {
-          title: "СЫЛТАУ БОЙЫНША САТЫП АЛЫҢЫЗ",
+          title: "CЕБЕП БОЙЫНША САТЫП АЛЫҢЫЗ",
           routerLink: "/category",
           showSubMenu: false,
           subMenus: [
@@ -107,6 +112,11 @@ export default {
             { title: "Жаз", routerLink: "/Leto" },
             { title: "Көктем", routerLink: "/Vesna" },
           ],
+        },
+        {
+          title: "Туған күн",
+          routerLink: "/happy",
+          showSubMenu: false,
         },
       ],
     };
