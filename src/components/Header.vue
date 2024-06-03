@@ -21,7 +21,13 @@
           <router-link v-if="!isAuthenticated" to="/login">
             <button>Кiру</button>
           </router-link>
+
           <button @click="logout" v-if="isAuthenticated">Шығу</button>
+          <a
+            class="text-[green] font-bold ml-[30px] text-[20px]"
+            href="https://api.whatsapp.com/send?phone=87478421263"
+            >Ватсап</a
+          >
         </div>
       </div>
       <nav>
