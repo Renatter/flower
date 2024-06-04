@@ -1,6 +1,6 @@
 <template>
   <div class="container pt-[150px]">
-    <p class="text-center text-[25px] leader mb-[25px]">Валентин күн</p>
+    <p class="text-center text-[25px] leader mb-[25px]">Ғашықтар күн</p>
     <div class="flex gap-[35px] flex-wrap">
       <ProductCard
         v-for="item in items"

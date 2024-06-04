@@ -32,10 +32,7 @@
             class="text-[green] font-bold ml-[30px] text-[20px]"
             href="https://api.whatsapp.com/send?phone=87478421263"
           >
-            <img
-              width="50px"
-              src="https://img.icons8.com/?size=100&id=16713&format=png&color=000000"
-              alt=""
+            <img width="50px" src="../assets/icons8-whatsapp.gif" alt=""
           /></a>
         </div>
       </div>
@@ -97,7 +94,7 @@ export default {
           showSubMenu: false,
           subMenus: [
             { title: "8 марта", routerLink: "/Mart" },
-            { title: "Валентин күні", routerLink: "/Valentina" },
+            { title: "Ғашықтар  күні", routerLink: "/Valentina" },
             { title: "Аналар күні", routerLink: "/Mama" },
             {
               title: "Туған күн",

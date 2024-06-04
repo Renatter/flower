@@ -25,7 +25,7 @@
                 <label
                   :for="'category-radio-' + category"
                   class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                  >{{ category }}</label
+                  >{{ category.toUpperCase() }}</label
                 >
               </div>
             </div>
@@ -137,6 +137,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss" scoped>
 .div {
   width: 90%;
