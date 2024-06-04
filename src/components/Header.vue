@@ -3,9 +3,13 @@
     <div class="text-center">
       <div class="flex justify-between items-center">
         <router-link to="/">
-          <img src="../assets/log.jpg" alt="" class="w-[50px] pt-[20px]" />
+          <img
+            src="../assets/Без имени.webp"
+            alt=""
+            class="w-[50px] pt-[20px]"
+          />
         </router-link>
-        <p>AD flowers</p>
+        <p class="text-[30px] font-bold">AD flowers</p>
         <div class="flex justify-between items-center">
           <router-link to="/basket" v-if="isAuthenticated">
             <img class="mr-[10px]" src="../assets/basket.png" alt="" />
@@ -50,7 +54,7 @@
                 <li
                   v-for="(subMenu, subIndex) in menu.subMenus"
                   :key="subIndex"
-                  class="text-left p-[15px] li w-[210px]"
+                  class="text-left p-[5px] li w-[210px]"
                 >
                   <router-link :to="subMenu.routerLink">
                     <a>{{ subMenu.title }}</a>
@@ -95,12 +99,15 @@ export default {
             { title: "8 марта", routerLink: "/Mart" },
             { title: "Валентин күні", routerLink: "/Valentina" },
             { title: "Аналар күні", routerLink: "/Mama" },
+            {
+              title: "Туған күн",
+              routerLink: "/happy",
+            },
           ],
         },
         {
           title: "Үй өсімдіктер",
           routerLink: "/Comnata",
-          // No subMenus property for this menu
         },
         {
           title: "Маусым",
@@ -112,11 +119,6 @@ export default {
             { title: "Жаз", routerLink: "/Leto" },
             { title: "Көктем", routerLink: "/Vesna" },
           ],
-        },
-        {
-          title: "Туған күн",
-          routerLink: "/happy",
-          showSubMenu: false,
         },
       ],
     };
