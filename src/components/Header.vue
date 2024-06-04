@@ -81,7 +81,7 @@ export default {
           showSubMenu: false,
           subMenus: [
             { title: "Қораптағы гүлдер", routerLink: "/flowerInbox" },
-            { title: "Вазадағы Гүлдер", routerLink: "/flowervase" },
+            { title: "Вазадағы гүлдер", routerLink: "/flowervase" },
           ],
         },
         {
@@ -93,7 +93,7 @@ export default {
           routerLink: "/category",
           showSubMenu: false,
           subMenus: [
-            { title: "8 марта", routerLink: "/Mart" },
+            { title: "8 наурыз", routerLink: "/Mart" },
             { title: "Ғашықтар  күні", routerLink: "/Valentina" },
             { title: "Аналар күні", routerLink: "/Mama" },
             {
@@ -111,10 +111,10 @@ export default {
           routerLink: "/category",
           showSubMenu: false,
           subMenus: [
-            { title: "Күз", routerLink: "/Osen" },
             { title: "Қыс", routerLink: "/zima" },
-            { title: "Жаз", routerLink: "/Leto" },
             { title: "Көктем", routerLink: "/Vesna" },
+            { title: "Жаз", routerLink: "/Leto" },
+            { title: "Күз", routerLink: "/Osen" },
           ],
         },
       ],
