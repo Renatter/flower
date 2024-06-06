@@ -28,7 +28,7 @@ export default {
   created() {
     const flowersQuery = query(
       collection(db, "flowers"),
-      where("category", "array-contains", "Валентин күн")
+      where("category", "array-contains", "Ғашықтар күні")
     );
 
     onSnapshot(flowersQuery, (querySnapshot) => {

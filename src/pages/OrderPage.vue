@@ -52,6 +52,7 @@ export default {
       querySnapshot.forEach((doc) => {
         this.item.push(doc.data());
       });
+      console.log(this.item);
     });
   },
 };

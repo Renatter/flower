@@ -1,7 +1,7 @@
 <template>
   <div class="container pt-[150px]">
     <p class="text-center text-[25px] leader mb-[25px]">Вазадағы Гүлдер</p>
-    <div class="flex gap-[35px]">
+    <div class="flex gap-[35px] flex-wrap">
       <ProductCard
         v-for="item in items"
         :flower="item"

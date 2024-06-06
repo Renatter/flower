@@ -42,15 +42,9 @@
 </template>
 
 <script>
-import {
-  collection,
-  getDocs,
-  addDoc,
-  deleteDoc,
-  onSnapshot,
-  doc,
-} from "firebase/firestore";
+import { collection, getDocs, query, where, addDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
+
 export default {
   data() {
     return {
@@ -62,12 +56,27 @@ export default {
   },
   methods: {
     async addPromo() {
+      const promoCollection = collection(db, "promo");
+      const promoQuery = query(
+        promoCollection,
+        where("name", "==", this.newProduct.name)
+      );
+      const querySnapshot = await getDocs(promoQuery);
+
+      if (!querySnapshot.empty) {
+        alert("Бұл жарнамалық код бұрыннан бар");
+        return;
+      }
+
       const discountValue = parseFloat(this.newProduct.discount);
-      const docRef = await addDoc(collection(db, "promo"), {
+      await addDoc(promoCollection, {
         name: this.newProduct.name,
         discount: discountValue,
       });
-      // Добавление нового промокода в базу данных
+
+      alert("Промокод қосылды");
+      this.newProduct.name = "";
+      this.newProduct.discount = 0;
     },
   },
 };

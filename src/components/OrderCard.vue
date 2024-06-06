@@ -15,7 +15,8 @@
       <div class="modal-content w-[400px]">
         <p>Аты: {{ order.userName }} {{ order.userL }}</p>
         <p>Нөмірі: {{ order.phone }}</p>
-        <p>Мекен-жайы: {{ order.addres }}</p>
+        <p v-if="order.tip === 'доставка'">Мекен-жайы: {{ order.addres }}</p>
+        <p v-if="order.tip === 'самовывоз'">Алатын жерi: Проспект Абая, 57/2</p>
         <p>Тәсілі: {{ order.sposob === 2 ? "карта" : "колма-кол" }}</p>
         <div v-for="i of order.cart" class="mt-[15px]">
           <div class="flex">

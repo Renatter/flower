@@ -9,7 +9,7 @@
             class="w-[50px] pt-[20px]"
           />
         </router-link>
-        <p class="text-[30px] font-bold">AD flowers</p>
+        <p class="text-[30px] font-bold text-[#d133d1]">AD flowers</p>
         <div class="flex justify-between items-center">
           <router-link to="/basket" v-if="isAuthenticated">
             <img class="mr-[10px]" src="../assets/basket.png" alt="" />
@@ -47,11 +47,11 @@
               <a href="">{{ menu.title }}</a>
             </router-link>
             <div v-if="menu.showSubMenu === true">
-              <ul class="dropdown-menu border-[1px]">
+              <ul class="dropdown-menu border-[1px] z-[900000]">
                 <li
                   v-for="(subMenu, subIndex) in menu.subMenus"
                   :key="subIndex"
-                  class="text-left p-[5px] li w-[210px]"
+                  class="text-left p-[5px] li w-[210px] bg-[white]"
                 >
                   <router-link :to="subMenu.routerLink">
                     <a>{{ subMenu.title }}</a>
@@ -76,17 +76,23 @@ export default {
       isAdmin: false,
       menus: [
         {
-          title: "ЖИНАҚ ДҮКЕНІ",
+          title: "БАРЛЫҚ ТАУАРЛАР",
+          routerLink: "/category",
+        },
+        {
+          title: "Маусым",
           routerLink: "/category",
           showSubMenu: false,
           subMenus: [
-            { title: "Қораптағы гүлдер", routerLink: "/flowerInbox" },
-            { title: "Вазадағы гүлдер", routerLink: "/flowervase" },
+            { title: "Қыс", routerLink: "/zima" },
+            { title: "Көктем", routerLink: "/Vesna" },
+            { title: "Жаз", routerLink: "/Leto" },
+            { title: "Күз", routerLink: "/Osen" },
           ],
         },
         {
-          title: "БАРЛЫҚ ТАУАРЛАР",
-          routerLink: "/category",
+          title: "Үй өсімдіктер",
+          routerLink: "/Comnata",
         },
         {
           title: "CЕБЕП БОЙЫНША САТЫП АЛЫҢЫЗ",
@@ -100,21 +106,8 @@ export default {
               title: "Туған күн",
               routerLink: "/happy",
             },
-          ],
-        },
-        {
-          title: "Үй өсімдіктер",
-          routerLink: "/Comnata",
-        },
-        {
-          title: "Маусым",
-          routerLink: "/category",
-          showSubMenu: false,
-          subMenus: [
-            { title: "Қыс", routerLink: "/zima" },
-            { title: "Көктем", routerLink: "/Vesna" },
-            { title: "Жаз", routerLink: "/Leto" },
-            { title: "Күз", routerLink: "/Osen" },
+            { title: "Қораптағы гүлдер", routerLink: "/flowerInbox" },
+            { title: "Вазадағы гүлдер", routerLink: "/flowervase" },
           ],
         },
       ],
@@ -170,7 +163,7 @@ export default {
 
 <style lang="scss" scoped>
 .dropdown-menu {
-  /* Add styles for the dropdown menu here */
+  background-color: white;
   display: none;
   position: absolute;
   /* Add additional styling as needed */
@@ -178,8 +171,10 @@ export default {
 
 li:hover .dropdown-menu {
   display: block;
+  background-color: white;
 }
 .li:hover {
+  background-color: white;
   transition: all 1.3s;
   border-bottom: 1px solid black;
 }
