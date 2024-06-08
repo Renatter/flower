@@ -9,7 +9,7 @@
             class="w-[50px] pt-[20px]"
           />
         </router-link>
-        <p class="text-[30px] font-bold text-[#d133d1]">AD flowers</p>
+        <p class="text-[30px] font-bold text-[#f882cb]">AD flowers</p>
         <div class="flex justify-between items-center">
           <router-link to="/basket" v-if="isAuthenticated">
             <img class="mr-[10px]" src="../assets/basket.png" alt="" />
